@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+ 
 import requests
 import csv
 import datetime
@@ -24,7 +26,6 @@ def query_victoriametrics(metric_name, start, end):
         raise Exception(f"Failed to query VictoriaMetrics: {response.status_code}, {response.text}")
 
 
-# Function to save the metrics data into a CSV file
 def save_metrics_to_csv(metrics_data):
     with open(csv_file, mode="w", newline="") as file:
         csv_writer = csv.writer(file)
@@ -41,7 +42,6 @@ def save_metrics_to_csv(metrics_data):
     file.close()   
 
 
-# Function to process and combine the data from VictoriaMetrics
 def fetch_and_save_metrics():
     # Get current time and calculate start and end times (past hour)
     end_time = datetime.datetime.now()

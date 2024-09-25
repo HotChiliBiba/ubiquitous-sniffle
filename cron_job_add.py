@@ -1,15 +1,15 @@
+#!/usr/bin/env python3
+
 import os.path
 import subprocess
 import sys
 
-file = sys.argv[1]  # Update path || from sys.argv or from input?
+file = sys.argv[1]  #  Update path || from sys.argv or from input?
 script_to_run = 0
 
 def create_cron_job():
-#crontab
-    cron_list = subprocess.run(["crontab", "-l"], capture_output=True, text=True) #Probably should redo || Usage of subprocess.check.call advised
+    cron_list = subprocess.run(["crontab", "-l"], capture_output=True, text=True)  #  Probably should redo || Usage of subprocess.check.call advised
     
-    # New cron job entry to run the script every minute
     new_cron_job = f"* * * * * {script_to_run} > /dev/null 2>&1\n"    #  > /dev/null 2>&1\n" added to remove MTA error notification
 
     # Check if the cron job is already present
@@ -17,7 +17,6 @@ def create_cron_job():
         print("Cron job already exists.")
         return
 
-    # Append the new cron job
     updated_cron = cron_list.stdout + new_cron_job
 
     process = subprocess.run(["crontab", "-"], input=updated_cron, text=True)
